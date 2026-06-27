@@ -15,7 +15,7 @@ Group:		Libraries
 Source0:	https://download.kde.org/stable/cxx-rust-cssparser/%{name}-%{version}.tar.xz
 # Source0-md5:	4302471a1d004501e8e1f5e8473befa0
 Source1:	%{name}-vendor-crates-%{version}.tar.xz
-# Source1-md5:	e0f32680846515cd13c3c3250a2ad51b
+# Source1-md5:	667d2488818fc2e04263e8da61936e80
 Patch0:		use_corrosion_cxxbridge.patch
 Patch1:		no_underscores.patch
 URL:		https://www.kde.org/
