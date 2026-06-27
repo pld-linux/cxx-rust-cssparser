@@ -1,0 +1,21 @@
+commit 17e12236d06b5c55d232856042ccc667a8a05955
+Author: Arjen Hiemstra <ahiemstra@heimr.nl>
+Date:   Thu May 14 22:36:22 2026 +0200
+
+    Correct the include path used by the non-corrosion cxxbridge
+    
+    The non-corrosion cxxbridge doesn't use underscores for the target name.
+
+diff --git a/rust/CMakeLists.txt b/rust/CMakeLists.txt
+index 8f9f3d5..d174d72 100644
+--- a/rust/CMakeLists.txt
++++ b/rust/CMakeLists.txt
+@@ -20,7 +20,7 @@ else()
+     set(_bridge_include_dir ${CMAKE_CURRENT_BINARY_DIR}/corrosion_generated/cxxbridge)
+     file(MAKE_DIRECTORY ${_bridge_include_dir}/cxx-rust-cssparser-impl-bridge)
+     file(WRITE ${_bridge_include_dir}/cxx-rust-cssparser-impl-bridge/ffi.h
+-        "#pragma once\n#include \"${_cxxbridge_dir}/cxx_rust_cssparser_impl/src/ffi.rs.h\"\n"
++        "#pragma once\n#include \"${_cxxbridge_dir}/cxx-rust-cssparser-impl/src/ffi.rs.h\"\n"
+     )
+ 
+     target_include_directories(cxx_rust_cssparser_impl INTERFACE ${_bridge_include_dir})
