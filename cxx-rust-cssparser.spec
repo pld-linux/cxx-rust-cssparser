@@ -9,7 +9,7 @@ Summary:	Library for parsing CSS
 Summary(pl.UTF-8):	Biblioteka do parsowania CSS
 Name:		cxx-rust-cssparser
 Version:	1.0.0
-Release:	1
+Release:	2
 License:	LGPL
 Group:		Libraries
 Source0:	https://download.kde.org/stable/cxx-rust-cssparser/%{name}-%{version}.tar.xz
@@ -70,7 +70,8 @@ export CARGO_HOME="$(pwd)/rust/.cargo"
 	-G Ninja \
 	%{!?with_tests:-DBUILD_TESTING=OFF} \
 	-DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-	-DUSE_CORROSION_CXXBRIDGE=OFF
+	-DUSE_CORROSION_CXXBRIDGE=OFF \
+	-DRust_CARGO_TARGET=%cargo_target
 
 %ninja_build -C build
 
