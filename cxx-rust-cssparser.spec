@@ -8,16 +8,14 @@
 Summary:	Library for parsing CSS
 Summary(pl.UTF-8):	Biblioteka do parsowania CSS
 Name:		cxx-rust-cssparser
-Version:	1.0.0
-Release:	2
+Version:	1.1.0
+Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	https://download.kde.org/stable/cxx-rust-cssparser/%{name}-%{version}.tar.xz
-# Source0-md5:	4302471a1d004501e8e1f5e8473befa0
+# Source0-md5:	a9532e8d40f8fa1df59d54b3353082f9
 Source1:	%{name}-vendor-crates-%{version}.tar.xz
-# Source1-md5:	667d2488818fc2e04263e8da61936e80
-Patch0:		use_corrosion_cxxbridge.patch
-Patch1:		no_underscores.patch
+# Source1-md5:	a958f230246ea2a3069562788fb08d13
 URL:		https://www.kde.org/
 BuildRequires:	cargo
 BuildRequires:	cmake >= 3.22
@@ -49,23 +47,21 @@ Header files for %{name} development.
 Pliki nagłówkowe dla programistów używających %{name}.
 
 %prep
-%setup -q -b1
-%patch -P0 -p1
-%patch -P1 -p1
+%setup -q -a1
 # Use our offline registry
-export CARGO_HOME="$(pwd)/rust/.cargo"
+export CARGO_HOME="$(pwd)/.cargo"
 
 mkdir -p "$CARGO_HOME"
-cat >rust/.cargo/config.toml <<EOF
+cat > .cargo/config.toml <<EOF
 [source.crates-io]
 replace-with = 'vendored-sources'
 
 [source.vendored-sources]
-directory = '$PWD/rust/vendor'
+directory = '$PWD/vendor'
 EOF
 
 %build
-export CARGO_HOME="$(pwd)/rust/.cargo"
+export CARGO_HOME="$(pwd)/.cargo"
 %cmake -B build \
 	-G Ninja \
 	%{!?with_tests:-DBUILD_TESTING=OFF} \
@@ -81,7 +77,7 @@ export CARGO_HOME="$(pwd)/rust/.cargo"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-export CARGO_HOME="$(pwd)/rust/.cargo"
+export CARGO_HOME="$(pwd)/.cargo"
 rm -rf $RPM_BUILD_ROOT
 %ninja_install -C build
 
